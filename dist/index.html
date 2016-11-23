@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html ng-app='pomodoroApp'>
+    <head>
+        <meta charset="utf-8">
+        <title>pomodoroApp</title>
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+        <link href="/styles/main.css" rel="stylesheet">
+    </head>
+    <body>
+        <div class="container" ng-controller="PomodoroCtrl as pomo">
+            <div class="timer">
+                <h1 ng-bind="pomo.pomodoro.currentTime"></h1>
+                <button type="button" class="btn btn-{{pomo.pomodoro.button}} btn-block" ng-click="pomo.pomodoro.timer()" ng-bind="pomo.pomodoro.timerText"></button>
+            </div>
+        </div>
+    </body>
+    <!-- Vendor -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+
+    <!-- App -->
+    <script src="/scripts/app.js"></script>
+    <!-- Directives -->
+    <!-- Controllers -->
+    <script src="/scripts/controllers/PomodoroCtrl.js"></script>
+    <!-- Services -->
+    <script src="/scripts/services/pomodoro.js"></script>
+</html>
