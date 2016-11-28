@@ -9,14 +9,23 @@
     Pomodoro.onBreak = false;
 
     var interval; // used in timerStart and timerStop
+    var pomodorosCompleted = 0; // stores how many pomodoros the user has completed this session
 
     // this function is the subtracts 1 off the currentTime
     var countdown = function() {
       if(Pomodoro.currentTime > 0) {
         Pomodoro.currentTime -= 1;
       } else if (Pomodoro.currentTime <= 0 && Pomodoro.onBreak == false) {
+        pomodorosCompleted += 1;
         Pomodoro.onBreak = true;
-        Pomodoro.currentTime = TIMER_FOR.BREAK;
+
+        // every 4 breaks give the user a 30 minute break
+        if (pomodorosCompleted % 4 == 0) {
+          Pomodoro.currentTime = TIMER_FOR.LONG_BREAK;
+        } else {
+          Pomodoro.currentTime = TIMER_FOR.BREAK;
+        }
+
         Pomodoro.timerText = "Start";
         Pomodoro.button = "default";
       } else if (Pomodoro.currentTime <= 0 && Pomodoro.onBreak == true) {
