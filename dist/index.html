@@ -10,13 +10,16 @@
         <div class="container" ng-controller="PomodoroCtrl as pomo">
             <div class="timer">
                 <h1 ng-bind="pomo.pomodoro.currentTime"></h1>
-                <button type="button" class="btn btn-{{pomo.pomodoro.button}} btn-block" ng-click="pomo.pomodoro.timer()" ng-bind="pomo.pomodoro.timerText"></button>
+                <!-- Pomodoro Button -->
+                <button type="button" class="btn btn-{{pomo.pomodoro.button}} btn-block" ng-click="pomo.pomodoro.timer()" ng-hide="pomo.pomodoro.onBreak" ng-bind="pomo.pomodoro.timerText"></button>
+                <!-- Break Button -->
+                <button type="button" class="btn btn-success btn-block" ng-show="pomo.pomodoro.onBreak">break</button>
             </div>
         </div>
     </body>
+
     <!-- Vendor -->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
-
     <!-- App -->
     <script src="/scripts/app.js"></script>
     <!-- Directives -->
@@ -24,4 +27,6 @@
     <script src="/scripts/controllers/PomodoroCtrl.js"></script>
     <!-- Services -->
     <script src="/scripts/services/pomodoro.js"></script>
+    <!-- Constants  -->
+    <script src="/scripts/constants/TIMER_FOR.js"></script>
 </html>

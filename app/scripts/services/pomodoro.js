@@ -1,17 +1,30 @@
 (function(){
-  function Pomodoro($interval) {
+  function Pomodoro($interval, TIMER_FOR) {
     var Pomodoro = {};
 
-    Pomodoro.currentTime = 1500; // == 25 minutes
+    Pomodoro.currentTime = TIMER_FOR.POMO; // == 25 minutes(1500)
     Pomodoro.timerRunning = false; // the default state of the timer
     Pomodoro.timerText = "Start";
     Pomodoro.button = "default";
-    var interval; // used in timerStart and timerStop
+    Pomodoro.onBreak = false;
 
+    var interval; // used in timerStart and timerStop
 
     // this function is the subtracts 1 off the currentTime
     var countdown = function() {
-      Pomodoro.currentTime -= 1;
+      if(Pomodoro.currentTime > 0) {
+        Pomodoro.currentTime -= 1;
+      } else if (Pomodoro.currentTime <= 0 && Pomodoro.onBreak == false) {
+        Pomodoro.onBreak = true;
+        Pomodoro.currentTime = TIMER_FOR.BREAK;
+        Pomodoro.timerText = "Start";
+        Pomodoro.button = "default";
+      } else if (Pomodoro.currentTime <= 0 && Pomodoro.onBreak == true) {
+        Pomodoro.onBreak = false;
+        Pomodoro.currentTime = TIMER_FOR.POMO;
+        Pomodoro.timerRunning = false;
+        $interval.cancel(interval);
+      }
     }
 
     // sets timerRunning to true and resets the button
@@ -27,7 +40,7 @@
     var timerEnd = function() {
       $interval.cancel(interval);
       Pomodoro.timerRunning = false;
-      Pomodoro.currentTime = 1500;
+      Pomodoro.currentTime = TIMER_FOR.POMO;
       Pomodoro.timerText = "Start";
       Pomodoro.button = "default";
     }
@@ -49,5 +62,5 @@
 
   angular
     .module('pomodoroApp')
-    .factory('Pomodoro', ['$interval', Pomodoro])
+    .factory('Pomodoro', ['$interval', 'TIMER_FOR', Pomodoro])
 })();
