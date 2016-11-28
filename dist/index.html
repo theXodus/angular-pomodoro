@@ -9,7 +9,7 @@
     <body>
         <div class="container" ng-controller="PomodoroCtrl as pomo">
             <div class="timer">
-                <h1 ng-bind="pomo.pomodoro.currentTime"></h1>
+                <h1 ng-bind="pomo.pomodoro.currentTime | timecode"></h1>
                 <!-- Pomodoro Button -->
                 <button type="button" class="btn btn-{{pomo.pomodoro.button}} btn-block" ng-click="pomo.pomodoro.timer()" ng-hide="pomo.pomodoro.onBreak" ng-bind="pomo.pomodoro.timerText"></button>
                 <!-- Break Button -->
@@ -22,7 +22,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
     <!-- App -->
     <script src="/scripts/app.js"></script>
-    <!-- Directives -->
+    <!-- Filters -->
+    <script src="/scripts/filters/timecode.js"></script>
     <!-- Controllers -->
     <script src="/scripts/controllers/PomodoroCtrl.js"></script>
     <!-- Services -->
