@@ -10,6 +10,9 @@
 
     var interval; // used in timerStart and timerStop
     var pomodorosCompleted = 0; // stores how many pomodoros the user has completed this session
+    var dingSound = new buzz.sound( "/assets/sounds/DingLing.mp3", {
+      preload: true
+    });
 
     // this function is the subtracts 1 off the currentTime
     var countdown = function() {
@@ -64,6 +67,11 @@
       }
     }
 
+    Pomodoro.playDing = function(num) {
+      if (num == 0) {
+        dingSound.play();
+      }
+    }
 
     return Pomodoro;
   };
