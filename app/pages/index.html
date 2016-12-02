@@ -15,13 +15,13 @@
                 <!-- Task form -->
                 <form class="form-inline">
                     <div class="form-group">
-                        <input type="text" class="form-control" ng-model="pomo.newTask" placeholder="Enter New Task" />
+                        <input type="text" class="form-control" ng-model="pomo.newTask.text" placeholder="Enter New Task" />
                         <button type="submit" class="btn btn-success" ng-click="pomo.addTask()">Submit</button>
                     </div>
                 </form>
                 <table>
-                    <tr ng-repeat="task in pomo.tasks">
-                       <td><p ng-bind="task.$value"></p></td>
+                    <tr ng-repeat="task in pomo.tasks | orderBy: '-created_at' ">
+                       <td><p ng-bind="task.text"></p></span></td>
                     </tr>
                 </table>
             </div>

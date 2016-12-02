@@ -4,7 +4,11 @@
 
     var tasks = $firebaseArray(ref);
     var addTask = function(item) {
-      tasks.$add(item);
+
+      tasks.$add({
+        text: item.text,
+        created_at: new Date().toString()
+      });
     }
 
     return {
