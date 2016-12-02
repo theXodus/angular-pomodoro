@@ -2,10 +2,8 @@
   function Pomodoro($interval, TIMER_FOR) {
     var Pomodoro = {};
 
-    Pomodoro.currentTime = TIMER_FOR.POMO; // == 25 minutes(1500)
+    Pomodoro.currentTime = TIMER_FOR.POMO;
     Pomodoro.timerRunning = false; // the default state of the timer
-    Pomodoro.timerText = "Start";
-    Pomodoro.button = "default";
     Pomodoro.onBreak = false;
 
     var interval; // used in timerStart and timerStop
@@ -14,28 +12,56 @@
       preload: true
     });
 
+    Pomodoro.timerText;
+    Pomodoro.buttonStyle;
+    var buttons = {
+      running: {
+        text: "Reset",
+        style: "danger"
+      },
+      stopped: {
+        text: "Start",
+        style: "default"
+      },
+      break: {
+        text: "Skip break",
+        style: "success"
+      }
+    };
+
+    function setButton(button) {
+      Pomodoro.timerText = button.text;
+      Pomodoro.buttonStyle = button.style;
+    }
+
+    function setBreak() {
+      Pomodoro.onBreak = true;
+      // every 4 breaks give the user a 30 minute break
+      if (pomodorosCompleted % 4 == 0) {
+        Pomodoro.currentTime = TIMER_FOR.LONG_BREAK;
+      } else {
+        Pomodoro.currentTime = TIMER_FOR.BREAK;
+      }
+    }
+
+    function setSession() {
+      Pomodoro.onBreak = false;
+      Pomodoro.currentTime = TIMER_FOR.POMO;
+      Pomodoro.timerRunning = false;
+      $interval.cancel(interval);
+    }
+
     // this function is the subtracts 1 off the currentTime
     var countdown = function() {
       if(Pomodoro.currentTime > 0) {
-        Pomodoro.currentTime -= 1;
+        Pomodoro.currentTime--;
       } else if (Pomodoro.currentTime <= 0 && Pomodoro.onBreak == false) {
-        pomodorosCompleted += 1;
-        Pomodoro.onBreak = true;
-
-        // every 4 breaks give the user a 30 minute break
-        if (pomodorosCompleted % 4 == 0) {
-          Pomodoro.currentTime = TIMER_FOR.LONG_BREAK;
-        } else {
-          Pomodoro.currentTime = TIMER_FOR.BREAK;
-        }
-
-        Pomodoro.timerText = "Start";
-        Pomodoro.button = "default";
+        pomodorosCompleted++;
+        setBreak();
+        setButton(buttons.break);
       } else if (Pomodoro.currentTime <= 0 && Pomodoro.onBreak == true) {
-        Pomodoro.onBreak = false;
-        Pomodoro.currentTime = TIMER_FOR.POMO;
-        Pomodoro.timerRunning = false;
-        $interval.cancel(interval);
+        setSession();
+        setButton(buttons.stopped);
       }
     }
 
@@ -44,22 +70,18 @@
     var timerStart = function() {
       Pomodoro.timerRunning = true;
       interval = $interval(countdown, 1000);
-      Pomodoro.timerText = "Reset";
-      Pomodoro.button = "danger";
+      setButton(buttons.running);
     }
 
     // cancels $interval, resets currentTime and changes button
     var timerEnd = function() {
-      $interval.cancel(interval);
-      Pomodoro.timerRunning = false;
-      Pomodoro.currentTime = TIMER_FOR.POMO;
-      Pomodoro.timerText = "Start";
-      Pomodoro.button = "default";
+      setSession();
+      setButton(buttons.stopped);
     }
 
     // if timer is running stop and resets
     // if it's not running start the timer
-    Pomodoro.timer = function() {
+    Pomodoro.toggleTimer = function() {
       if (Pomodoro.timerRunning) {
         timerEnd();
       } else if (!Pomodoro.timerRunning){
@@ -71,6 +93,10 @@
       if (num == 0) {
         dingSound.play();
       }
+    }
+
+    Pomodoro.init = function() {
+      setButton(buttons.stopped);
     }
 
     return Pomodoro;

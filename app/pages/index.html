@@ -11,9 +11,19 @@
             <div class="timer">
                 <h1 ng-bind="pomo.pomodoro.currentTime | timecode"></h1>
                 <!-- Pomodoro Button -->
-                <button type="button" class="btn btn-{{pomo.pomodoro.button}} btn-block" ng-click="pomo.pomodoro.timer()" ng-hide="pomo.pomodoro.onBreak" ng-bind="pomo.pomodoro.timerText"></button>
-                <!-- Break Button -->
-                <button type="button" class="btn btn-success btn-block" ng-show="pomo.pomodoro.onBreak">break</button>
+                <button type="button" class="btn btn-{{pomo.pomodoro.buttonStyle}} btn-block" ng-click="pomo.pomodoro.toggleTimer()" ng-bind="pomo.pomodoro.timerText"></button>
+                <!-- Task form -->
+                <form class="form-inline">
+                    <div class="form-group">
+                        <input type="text" class="form-control" ng-model="pomo.newTask" placeholder="Enter New Task" />
+                        <button type="submit" class="btn btn-success" ng-click="pomo.addTask()">Submit</button>
+                    </div>
+                </form>
+                <table>
+                    <tr ng-repeat="task in pomo.tasks">
+                       <td><p ng-bind="task.$value"></p></td>
+                    </tr>
+                </table>
             </div>
         </div>
     </body>
@@ -21,6 +31,8 @@
     <!-- Vendor -->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/buzz/1.1.0/buzz.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/3.6.0/firebase.js"></script>
+    <script src="https://cdn.firebase.com/libs/angularfire/2.1.0/angularfire.min.js"></script>
     <!-- App -->
     <script src="/scripts/app.js"></script>
     <!-- Filters -->
@@ -29,6 +41,7 @@
     <script src="/scripts/controllers/PomodoroCtrl.js"></script>
     <!-- Services -->
     <script src="/scripts/services/pomodoro.js"></script>
+    <script src="/scripts/services/tasks.js"></script>
     <!-- Constants  -->
     <script src="/scripts/constants/TIMER_FOR.js"></script>
 </html>
