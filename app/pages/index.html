@@ -3,28 +3,33 @@
     <head>
         <meta charset="utf-8">
         <title>pomodoroApp</title>
-        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+        <!-- <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"> -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/angular-material/1.1.1/angular-material.min.css">
         <link href="/styles/main.css" rel="stylesheet">
     </head>
-    <body>
-        <div class="container" ng-controller="PomodoroCtrl as pomo">
-            <div class="timer">
-                <h1 ng-bind="pomo.pomodoro.currentTime | timecode"></h1>
-                <!-- Pomodoro Button -->
-                <button type="button" class="btn btn-{{pomo.pomodoro.buttonStyle}} btn-block" ng-click="pomo.pomodoro.toggleTimer()" ng-bind="pomo.pomodoro.timerText"></button>
-                <!-- Task form -->
-                <form class="form-inline">
-                    <div class="form-group">
-                        <input type="text" class="form-control" ng-model="pomo.newTask.text" placeholder="Enter New Task" />
-                        <button type="submit" class="btn btn-success" ng-click="pomo.addTask()">Submit</button>
-                    </div>
-                </form>
-                <table>
-                    <tr ng-repeat="task in pomo.tasks | orderBy: '-created_at' ">
-                       <td><p ng-bind="task.text"></p></span></td>
-                    </tr>
-                </table>
-            </div>
+    <body ng-controller="PomodoroCtrl as pomo" layout="column">
+        <md-toolbar>
+            <h1>Pomodoro App</h1>
+        </md-toolbar>
+
+        <div class="container" layout="row" flex>
+            <md-sidenav md-is-locked-open="true">
+
+
+
+                <md-input-container>
+                    <label>Task</label>
+                    <input ng-model="pomo.newTask.text" />
+                    <md-button type="submit" class="md-raised md-primary" ng-click="pomo.addTask()">Submit</button>
+                </md-input-container>
+
+
+
+                <md-list ng-repeat="task in pomo.tasks | orderBy: '-created_at' ">
+                    <md-list-item ><p ng-bind="task.text"></md-list-item>
+                </md-list>
+            </md-sidenav>
+            <md-content id="content" class="lightgreen" flex>Content</md-content>
         </div>
     </body>
 
@@ -33,6 +38,11 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/buzz/1.1.0/buzz.min.js"></script>
     <script src="https://www.gstatic.com/firebasejs/3.6.0/firebase.js"></script>
     <script src="https://cdn.firebase.com/libs/angularfire/2.1.0/angularfire.min.js"></script>
+    <!-- Angular Material Dependencies -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular-animate.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular-aria.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-material/1.1.1/angular-material.min.js"></script>
     <!-- App -->
     <script src="/scripts/app.js"></script>
     <!-- Filters -->

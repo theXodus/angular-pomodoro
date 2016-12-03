@@ -12,6 +12,6 @@
   }
 
   angular
-    .module('pomodoroApp', ['firebase'])
+    .module('pomodoroApp', ['firebase', 'ngMaterial'])
     .config(config)
 })();
