@@ -5,6 +5,7 @@
     Pomodoro.currentTime = TIMER_FOR.POMO;
     Pomodoro.timerRunning = false; // the default state of the timer
     Pomodoro.onBreak = false;
+    Pomodoro.progressNum = 4; // this number is used to determine what to multiply to get to 100 for the progress chart
 
     var interval; // used in timerStart and timerStop
     var pomodorosCompleted = 0; // stores how many pomodoros the user has completed this session
@@ -17,15 +18,15 @@
     var buttons = {
       running: {
         text: "Reset",
-        style: "danger"
+        style: "reset"
       },
       stopped: {
         text: "Start",
-        style: "default"
+        style: "start"
       },
       break: {
         text: "Skip break",
-        style: "success"
+        style: "break"
       }
     };
 
@@ -39,7 +40,9 @@
       // every 4 breaks give the user a 30 minute break
       if (pomodorosCompleted % 4 == 0) {
         Pomodoro.currentTime = TIMER_FOR.LONG_BREAK;
+        Pomodoro.progressNum = 3.334;
       } else {
+        Pomodoro.progressNum = 20;
         Pomodoro.currentTime = TIMER_FOR.BREAK;
       }
     }
@@ -47,6 +50,7 @@
     function setSession() {
       Pomodoro.onBreak = false;
       Pomodoro.currentTime = TIMER_FOR.POMO;
+      Pomodoro.progressNum = 4;
       Pomodoro.timerRunning = false;
       $interval.cancel(interval);
     }

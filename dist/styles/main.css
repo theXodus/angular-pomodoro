@@ -1,11 +1,21 @@
-.red {
-  background-color: red;
+h1, p {
+  padding-left: 5px;
 }
 
-.lightblue {
-  background-color: lightblue;
+#pomoClock {
+  font-size: 5rem;
+  padding-left: 0;
 }
 
-.lightgreen {
-  background-color: lightgreen;
+.btn-reset {
+  color: #FF4136;
+  font-weight: bold;
+}
+.btn-start {
+  color: #111111;
+  font-weight: bold;
+}
+.btn-break {
+  color: #2ECC40;
+  font-weight: bold;
 }

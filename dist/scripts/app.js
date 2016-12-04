@@ -1,6 +1,6 @@
 (function(){
 
-  function config() {
+  function config($mdThemingProvider) {
     var config = {
       apiKey: "AIzaSyAf489tk8w0FtS2SkToB07T7OUzZzktW-c",
       authDomain: "pomodoro-25eb3.firebaseapp.com",
@@ -9,6 +9,8 @@
       messagingSenderId: "619553518625"
     };
     firebase.initializeApp(config);
+    $mdThemingProvider.theme('default')
+      .primaryPalette('red');
   }
 
   angular

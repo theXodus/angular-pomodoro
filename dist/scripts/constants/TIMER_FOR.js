@@ -1,5 +1,5 @@
 (function(){
     angular
       .module('pomodoroApp')
-      .constant('TIMER_FOR', {POMO:3, BREAK:5, LONG_BREAK: 15}) // 1500, 300, 1800
+      .constant('TIMER_FOR', {POMO:1500, BREAK:300, LONG_BREAK: 1800})
 })();
