@@ -28,10 +28,12 @@
             <md-content id="content" flex>
                 <div layout="row" layout-align="center">
                     <h1 ng-bind="pomo.pomodoro.currentTime | timecode" id="pomoClock"></h1>
-                    <md-button type="button" class="btn-{{pomo.pomodoro.buttonStyle}}" ng-click="pomo.pomodoro.toggleTimer()" ng-bind="pomo.pomodoro.timerText"></md-button>
+                </div>
+                <div layout="row" layout-align="center" id="button">
+                    <md-button type="button" class="md-{{pomo.pomodoro.buttonStyle}} md-raised" ng-click="pomo.pomodoro.toggleTimer()" ng-bind="pomo.pomodoro.timerText"></md-button>
                 </div>
                 <div layout="row" layout-align="center">
-                    <md-progress-circular md-mode="determinate" md-diameter="300" value="{{(pomo.pomodoro.currentTime / 60) * pomo.pomodoro.progressNum}}"></md-progress-circular>
+                    <md-progress-circular id="pomoCircle" md-mode="determinate" md-diameter="400" value="{{(pomo.pomodoro.currentTime / 60) * pomo.pomodoro.progressNum}}"></md-progress-circular>
                 </div>
 
             </md-content>

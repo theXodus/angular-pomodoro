@@ -2,20 +2,25 @@ h1, p {
   padding-left: 5px;
 }
 
+#button {
+  padding-bottom: 10px;
+}
+
 #pomoClock {
   font-size: 5rem;
   padding-left: 0;
+  margin-bottom: -15px;
 }
 
 .btn-reset {
-  color: #FF4136;
+  color: #FF4136 !important;
   font-weight: bold;
 }
 .btn-start {
-  color: #111111;
+  color: #111111 !important;
   font-weight: bold;
 }
 .btn-break {
-  color: #2ECC40;
+  color: #2ECC40 !important;
   font-weight: bold;
 }
